@@ -92,3 +92,10 @@ def test_require_fashion_filter():
     b = Article("政治の話", "https://ex.com/b", "strict", "sns")
     c = Article("政治の話", "https://ex.com/c", "other", "media")
     assert apply_source_filters([a, b, c], srcs, CONFIG) == [a, c]
+
+
+def test_page_title_morning_and_evening():
+    from fashion_news.main import page_title
+
+    assert page_title(datetime(2026, 11, 13, 21, 45, tzinfo=timezone.utc)) == "2026-11-14 朝刊"
+    assert page_title(datetime(2026, 11, 14, 8, 45, tzinfo=timezone.utc)) == "2026-11-14 夕刊"

@@ -9,7 +9,7 @@
    - `NOTION_TOKEN`: インテグレーションのトークン
    - `NOTION_PARENT_PAGE_ID`: `e76065314b0e4bbe87c1ea93b35ef8b5`
 3. Actions タブの daily-fashion-news → Run workflow で手動実行し、Notion にページができ、ログで各情報源が取得できていることを確認する。
-4. 以降は毎日 5:30 JST に自動実行される。
+4. 以降は毎日 6:30 JST（朝刊）と 17:30 JST（夕刊）に自動実行される。
 
 ## ローカルでの実行
 ```bash

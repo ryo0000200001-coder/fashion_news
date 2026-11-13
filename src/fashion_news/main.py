@@ -55,10 +55,16 @@ def render_text(title: str, grouped: dict[str, list[Article]]) -> str:
     return "\n".join(lines)
 
 
+def page_title(now: datetime) -> str:
+    """JST の正午より前なら朝刊、それ以降は夕刊。"""
+    jst = now.astimezone(JST)
+    return f"{jst.date().isoformat()} {'朝刊' if jst.hour < 12 else '夕刊'}"
+
+
 def run(dry_run: bool, force: bool, now: datetime | None = None) -> int:
     now = now or datetime.now(timezone.utc)
     today = now.astimezone(JST).date().isoformat()
-    title = f"{today} ファッションニュース"
+    title = page_title(now)
 
     sources = yaml.safe_load((ROOT / "config/sources.yaml").read_text(encoding="utf-8"))["sources"]
     config = yaml.safe_load((ROOT / "config/categories.yaml").read_text(encoding="utf-8"))

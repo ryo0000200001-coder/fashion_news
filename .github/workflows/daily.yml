@@ -2,7 +2,8 @@ name: daily-fashion-news
 
 on:
   schedule:
-    - cron: "30 20 * * *" # 毎日 5:30 JST（UTC 20:30）。混雑時の遅れを見込んで 6:00 の30分前
+    - cron: "30 21 * * *" # 毎日 6:30 JST（朝刊）。混雑時の遅れを見込んで 7:00 の30分前
+    - cron: "30 8 * * *" # 毎日 17:30 JST（夕刊）。18:00 の30分前
   workflow_dispatch:
     inputs:
       force:
