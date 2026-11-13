@@ -1,0 +1,19 @@
+# 情報源の一覧。kind は media（ファッションメディア）/ official（ブランド公式発表）/ sns（SNSの話題の代替）。
+# URL は実装時にネットワーク制限のある環境で未確認。初回の手動実行ログで取得できているか確認すること。
+# 取得に失敗した情報源はスキップされ、ログに警告が出る。
+sources:
+  - {name: WWDJAPAN, url: "https://www.wwdjapan.com/feed", kind: media}
+  - {name: FASHIONSNAP, url: "https://www.fashionsnap.com/rss.xml", kind: media}
+  - {name: ファッションプレス, url: "https://www.fashion-press.net/news/rss", kind: media}
+  - {name: HYPEBEAST JP, url: "https://hypebeast.com/jp/feed", kind: media}
+  - {name: PR TIMES, url: "https://prtimes.jp/index.rdf", kind: official}
+  - name: Googleニュース(コレクション)
+    url: "https://news.google.com/rss/search?q=%E3%83%95%E3%82%A1%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3+%E3%82%B3%E3%83%AC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3+when:1d&hl=ja&gl=JP&ceid=JP:ja"
+    kind: media
+  - name: Googleニュース(スニーカー)
+    url: "https://news.google.com/rss/search?q=%E3%82%B9%E3%83%8B%E3%83%BC%E3%82%AB%E3%83%BC+when:1d&hl=ja&gl=JP&ceid=JP:ja"
+    kind: media
+  - name: Googleニュース(SNSで話題)
+    url: "https://news.google.com/rss/search?q=%E3%83%95%E3%82%A1%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3+SNS+%E8%A9%B1%E9%A1%8C+when:1d&hl=ja&gl=JP&ceid=JP:ja"
+    kind: sns
+  - {name: はてブ(ライフスタイル), url: "https://b.hatena.ne.jp/hotentry/life.rss", kind: sns}
