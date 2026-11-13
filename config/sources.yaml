@@ -6,7 +6,6 @@ sources:
   - {name: FASHIONSNAP, url: "https://www.fashionsnap.com/rss.xml", kind: media}
   - {name: ファッションプレス, url: "https://www.fashion-press.net/news/rss", kind: media}
   - {name: HYPEBEAST JP, url: "https://hypebeast.com/jp/feed", kind: media}
-  - {name: PR TIMES, url: "https://prtimes.jp/index.rdf", kind: official}
   - name: Googleニュース(コレクション)
     url: "https://news.google.com/rss/search?q=%E3%83%95%E3%82%A1%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3+%E3%82%B3%E3%83%AC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3+when:1d&hl=ja&gl=JP&ceid=JP:ja"
     kind: media
