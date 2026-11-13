@@ -73,3 +73,22 @@ def test_build_blocks_and_render():
 def test_prune_seen():
     seen = {"a": "2026-01-01", "b": "2026-11-12"}
     assert prune_seen(seen, "2026-11-13") == {"b": "2026-11-12"}
+
+
+def test_max_per_category_keeps_newest():
+    cfg = dict(CONFIG, max_per_category=2)
+    items = [
+        art(f"決算{i}", f"https://ex.com/{i}", pub=NOW - timedelta(hours=i)) for i in range(5)
+    ]
+    out = group_articles(items, cfg)["業界・ビジネス"]
+    assert [a.title for a in out] == ["決算0", "決算1"]
+
+
+def test_require_fashion_filter():
+    from fashion_news.classify import apply_source_filters
+
+    srcs = [{"name": "strict", "require_fashion": True}]
+    a = Article("ファッションの話", "https://ex.com/a", "strict", "sns")
+    b = Article("政治の話", "https://ex.com/b", "strict", "sns")
+    c = Article("政治の話", "https://ex.com/c", "other", "media")
+    assert apply_source_filters([a, b, c], srcs, CONFIG) == [a, c]

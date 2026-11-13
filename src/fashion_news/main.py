@@ -9,7 +9,7 @@ from pathlib import Path
 
 import yaml
 
-from .classify import category_order, classify
+from .classify import apply_source_filters, category_order, classify
 from .dedupe import dedupe, filter_recent, normalize_url
 from .fetch import fetch_all
 from .models import Article
@@ -37,6 +37,12 @@ def group_articles(articles: list[Article], config: dict) -> dict[str, list[Arti
     for a in articles:
         a.category = classify(a, config)
         grouped[a.category].append(a)
+    limit = config.get("max_per_category")
+    oldest = datetime.min.replace(tzinfo=timezone.utc)
+    for name, items in grouped.items():
+        items.sort(key=lambda a: a.published or oldest, reverse=True)  # 新しい順
+        if limit:
+            grouped[name] = items[:limit]
     return grouped
 
 
@@ -81,8 +87,9 @@ def run(dry_run: bool, force: bool, now: datetime | None = None) -> int:
     if not fetched:
         log.error("全ての情報源の取得に失敗しました")
         return 1
-    articles = dedupe(filter_recent(fetched, now), set(seen))
-    grouped = group_articles(articles, config)
+    candidates = apply_source_filters(filter_recent(fetched, now), sources, config)
+    grouped = group_articles(dedupe(candidates, set(seen)), config)
+    articles = [a for items in grouped.values() for a in items]  # 上限で落とした記事は履歴に入れない
     log.info("取得 %d件 → 掲載 %d件", len(fetched), len(articles))
 
     if dry_run:

@@ -1,4 +1,5 @@
 # 情報源の一覧。kind は media（ファッションメディア）/ official（ブランド公式発表）/ sns（SNSの話題の代替）。
+# require_fashion: true を付けると、ファッション関連のキーワードを含む記事だけ残す。
 # URL は実装時にネットワーク制限のある環境で未確認。初回の手動実行ログで取得できているか確認すること。
 # 取得に失敗した情報源はスキップされ、ログに警告が出る。
 sources:
@@ -15,4 +16,4 @@ sources:
   - name: Googleニュース(SNSで話題)
     url: "https://news.google.com/rss/search?q=%E3%83%95%E3%82%A1%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3+SNS+%E8%A9%B1%E9%A1%8C+when:1d&hl=ja&gl=JP&ceid=JP:ja"
     kind: sns
-  - {name: はてブ(ライフスタイル), url: "https://b.hatena.ne.jp/hotentry/life.rss", kind: sns}
+  - {name: はてブ(ライフスタイル), url: "https://b.hatena.ne.jp/hotentry/life.rss", kind: sns, require_fashion: true}

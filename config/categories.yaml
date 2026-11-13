@@ -1,5 +1,9 @@
 # 上から順に判定し、最初に当たったジャンルに記事を載せる（kind が official/sns の記事は先に「公式発表・ニッチ」）。
 # どれにも当たらなければ「その他」。
+# 各ジャンルに載せる最大件数（新しい記事から優先）
+max_per_category: 20
+# sources.yaml で require_fashion: true の情報源は、タイトルにこのキーワードを含む記事だけ残す
+fashion_keywords: [ファッション, 服, コーデ, スニーカー, ブランド, コレクション, ランウェイ, アパレル, 着こなし, ユニクロ, GU, ZARA, ナイキ, アディダス, バッグ, ジャケット, デニム, 古着]
 niche_category: 公式発表・ニッチ
 niche_kinds: [official, sns]
 fallback_category: その他
