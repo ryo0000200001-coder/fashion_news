@@ -61,9 +61,16 @@ def run(dry_run: bool, force: bool, now: datetime | None = None) -> int:
 
     client = parent_id = None
     if not dry_run:
-        token, parent_id = os.environ.get("NOTION_TOKEN"), os.environ.get("NOTION_PARENT_PAGE_ID")
+        token = (os.environ.get("NOTION_TOKEN") or "").strip()
+        parent_id = (os.environ.get("NOTION_PARENT_PAGE_ID") or "").strip()
         if not token or not parent_id:
             log.error("NOTION_TOKEN と NOTION_PARENT_PAGE_ID が必要です")
+            return 1
+        if not token.isascii() or not token.isprintable() or " " in token:
+            log.error(
+                "NOTION_TOKEN に半角英数字以外の文字（日本語・記号・空白・改行など）が含まれています。"
+                "Notion のインテグレーション画面のコピーアイコンでトークンをコピーし直して登録してください"
+            )
             return 1
         client = NotionClient(token)
         if not force and client.find_child_page(parent_id, title):
